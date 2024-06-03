@@ -1,4 +1,4 @@
-.new-collection{
+.new-collections{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,12 +6,12 @@
     height: 90vh;
     margin-bottom: 250px;
 }
-.new-collection h1{
+.new-collections h1{
     color: #171717;
     font-size: 50px;
     font-weight: 600px;
 }
-.new-collection hr{
+.new-collections hr{
     width: 200px;
     height: 6px;
     border-radius: 8px;
@@ -21,5 +21,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: 50px;
-    gap: 0.2px;
+    gap: 11px;
+    row-gap: 40px;
 }
