@@ -4,12 +4,6 @@
 .item p{
     margin: 6px 0px;
 }
-.item-prices{
-    display: flex;
-    gap: 20px;
-    margin-left: 100px;
-    
-}
 .item-price-new{
     color: #374151;
     font-size: 18px;
