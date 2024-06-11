@@ -1,6 +1,7 @@
 import React, {  useState , useEffect} from 'react'
 import './NewCollections.css'
-import Item from '../Item/Item';
+import Item from '../Item/Item'
+
 
 const NewCollections = () => {
 

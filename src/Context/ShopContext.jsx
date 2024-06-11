@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
 
+
 export const ShopContext = createContext(null);
 
 const getDefaultCart = ()=>{
@@ -18,13 +19,19 @@ const ShopContextProvider = (props) => {
 
     useEffect(()=>{
         fetch('http://localhost:4000/allproducts')
-        .then((response)=>response.json())
-        .then((data)=setAll_Product(data))
+        .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => setAll_Product(data))
+          .catch((error) => console.error('Error fetching all products:', error));
 
         if(localStorage.getItem('auth-token')){
             fetch('http://localhost:4000/getcart',{
                 method:'POST',
-                header:{
+                headers:{
                     Accept:'application/form-data',
                     'auth-token':`${localStorage.getItem('auth-token')}`,
                     "Content-Type":'application/json',
