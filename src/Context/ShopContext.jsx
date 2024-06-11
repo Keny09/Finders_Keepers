@@ -15,7 +15,7 @@ const getDefaultCart = ()=>{
 const ShopContextProvider = (props) => {
 
     const[all_product,setAll_Product] = useState([]);
-    const [CartItems,setCartItems] = useState(getDefaultCart());
+    const [cartItems,setCartItems] = useState(getDefaultCart());
 
     useEffect(()=>{
         fetch('http://localhost:4000/allproducts')
@@ -44,6 +44,7 @@ const ShopContextProvider = (props) => {
 
     const addToCart =(itemId) =>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}));
+        console.log(cartItems);
         if(localStorage.getItem('auth-token')){
             fetch('http://localhost:4000/addtocart',{
                 method:'POST',
@@ -79,12 +80,12 @@ const ShopContextProvider = (props) => {
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
-        for(const item in CartItems)
+        for(const item in cartItems)
         {
-            if(CartItems[item]>0)
+            if(cartItems[item]>0)
             {
                 let itemInfo = all_product.find((product)=>product.id===Number(item))
-                totalAmount += itemInfo.new_price*CartItems[item];
+                totalAmount += itemInfo.new_price*cartItems[item];
             }
         }
         return totalAmount;
@@ -92,17 +93,17 @@ const ShopContextProvider = (props) => {
 
     const getTotalCartItems =() =>{
         let totalItem = 0;
-        for(const item in CartItems)
+        for(const item in cartItems)
             {
-                if(CartItems[item]>0)
+                if(cartItems[item]>0)
                 {
-                    totalItem += CartItems[item];
+                    totalItem += cartItems[item];
                 }
             }
         return totalItem;
     }
 
-    const contextValue ={getTotalCartItems,getTotalCartAmount,all_product,CartItems,addToCart,removeFromCart};
+    const contextValue ={getTotalCartItems,getTotalCartAmount,all_product,cartItems,addToCart,removeFromCart};
 
     return(
         <ShopContext.Provider value={contextValue}>
