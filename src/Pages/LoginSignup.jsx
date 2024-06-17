@@ -16,12 +16,12 @@ const LoginSignup = () => {
   }
 
   const login = async() => {
-    console.log("Login Function Executed", formData);
+    console.log("Login Function Executed",formData);
     let responseData;
     await fetch('http://localhost:4000/login',{
       method:'POST',
       headers:{
-        Accept:'application/json',
+        Accept:'application/form-data',
         'Content-Type':'application/json',
       },
       body: JSON.stringify(formData),
@@ -42,7 +42,7 @@ const LoginSignup = () => {
     await fetch('http://localhost:4000/signup',{
       method:'POST',
       headers:{
-        Accept:'application/json',
+        Accept:'application/form-data',
         'Content-Type':'application/json',
       },
       body: JSON.stringify(formData),

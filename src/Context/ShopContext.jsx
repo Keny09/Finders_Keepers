@@ -23,7 +23,10 @@ const ShopContextProvider = (props) => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json();
+            else{
+                return response.json();
+            }
+            
           })
           .then((data) => setAll_Product(data))
           .catch((error) => console.error('Error fetching all products:', error));
@@ -37,14 +40,22 @@ const ShopContextProvider = (props) => {
                     "Content-Type":'application/json',
                 },
                 body:"",
-            }).then((response)=>response.json())
+            })
+            .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                else{
+                    return response.json();
+                }
+                
+              })
             .then((data)=>setCartItems(data));
         }
     },[])
 
     const addToCart =(itemId) =>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}));
-        console.log(cartItems);
         if(localStorage.getItem('auth-token')){
             fetch('http://localhost:4000/addtocart',{
                 method:'POST',
