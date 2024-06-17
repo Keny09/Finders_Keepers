@@ -25,7 +25,7 @@ app.use(cors({
 }));
 
 // Database Connection with Mongodb
-mongoose.connect("mongodb+srv://Keny09:rkendy808@cluster0.wk6yewa.mongodb.net/finderskeepers");
+mongoose.connect("mongodb+srv://Keny09:@cluster0.wk6yewa.mongodb.net/finderskeepers");
 
 // API Creation
 
