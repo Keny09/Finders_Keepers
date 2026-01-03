@@ -1,3 +1,4 @@
+require('dotenv').config();
 const port = process.env.PORT || 4000;
 const express = require("express");
 const app = express();
@@ -9,10 +10,11 @@ const cors = require("cors");
 const { error, log } = require("console");
 const { type } = require("os");
 
+
 app.use(express.json());
 
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000','https://finderske3pers.netlify.app'];
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -25,7 +27,9 @@ app.use(cors({
 }));
 
 // Database Connection with Mongodb
-mongoose.connect("mongodb+srv://Keny09:rkendy808@cluster0.wk6yewa.mongodb.net/finderskeepers");
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://Keny09:rkendy808@cluster0.wk6yewa.mongodb.net/finderskeepers")
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Could not connect to MongoDB", err));
 
 // API Creation
 
@@ -48,10 +52,13 @@ const upload = multer({storage:storage})
 
 app.use('/images',express.static('upload/images'))
 
-app.post("/upload",upload.single("product"),(req,res)=>{
+
+app.post("/upload", upload.single("product"), (req, res) => {
+    const host = req.get('host'); 
+    const protocol = req.protocol;
     res.json({
-        success:1,
-        image_url:`http://localhost:${port}/images/${req.file.filename}`
+        success: 1,
+        image_url: `${protocol}://${host}/images/${req.file.filename}`
     })  
 })
 
