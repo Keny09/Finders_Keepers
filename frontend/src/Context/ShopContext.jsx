@@ -18,7 +18,7 @@ const ShopContextProvider = (props) => {
     const [cartItems,setCartItems] = useState(getDefaultCart());
 
     useEffect(()=>{
-        fetch('https://findersk33pers.onrender.com/')
+        fetch('https://findersk33pers.onrender.com/allproducts')
         .then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
